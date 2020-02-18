@@ -20,13 +20,19 @@ import FeatureScreen from '../screens/featured';
 import OrdersScreen from '../screens/orders';
 import ViewsScreen from '../screens/view_orders';
 import ArrivalScreen from '../screens/arrival';
-
+import TermsScreen from '../screens/terms';
 
 const Main = createStackNavigator({
     
     tab:{
         screen:Tab,
         navigationOptions: {
+            header:null
+        }
+    },
+    terms:{
+        screen:TermsScreen,
+        navigationOptions:{
             header:null
         }
     },
