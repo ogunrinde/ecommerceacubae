@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text,TextInput,ScrollView,StyleSheet,Image, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {View, Text,TextInput,ScrollView,StyleSheet,Image, TouchableOpacity,Linking, ActivityIndicator} from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
@@ -52,7 +52,8 @@ class ProfileScreen extends React.Component {
           }).catch(err => {
 
               this.setState({msg:err.toString()});  
-              this.setState({modalVisible:!this.state.modalVisible});              this.setState({modalVisible:!this.state.modalVisible});
+              this.setState({modalVisible:!this.state.modalVisible});              
+              this.setState({modalVisible:!this.state.modalVisible});
           });
   }
 
@@ -72,7 +73,8 @@ class ProfileScreen extends React.Component {
            
     }
     select = (val) =>{
-       this.setState({select:val})
+       if(val == this.state.select) this.setState({select:''});
+       else this.setState({select:val});
     }
     closemodal = () =>{
        this.setState({modalVisible:!this.state.modalVisible});
@@ -91,7 +93,14 @@ class ProfileScreen extends React.Component {
                             style={{width:80,height:80,borderRadius:40}}
                     />
                    </View>
-                   <Modal isVisible={this.state.modalVisible}>
+                   <View style={{width:'75%'}}>
+                        <Text style={{color:'#000000', fontFamily:'Montserrat-SemiBold',marginTop:10}}>{this.props.data.userData.name}</Text>
+                        
+                    </View>
+                   
+                  
+               </View>
+               <Modal isVisible={this.state.modalVisible}>
                     <View style={{backgroundColor:'#fff',width:'98%',height:300,marginRight:0,alignSelf:'center' }}>
                         <Image
                                 source={require('../assets/images/info.png')}
@@ -100,17 +109,19 @@ class ProfileScreen extends React.Component {
                         <Text style={{color:'#000',fontSize:15,fontFamily:'Montserrat-Bold',textAlign:'center'}}>Alert</Text> 
                         <Text style={{color:'#000',fontSize:15,fontFamily:'Montserrat-Regular',textAlign:'center',marginTop:20}}>{this.state.msg}</Text>        
                         <View style={{flexDirection:'row',padding:10,alignSelf:'center',marginTop:15}}>
-                            <TouchableOpacity onPress = {this.login}>
+                           {
+                              this.state.msg !== 'Profile Edited Successful' &&
+                              <TouchableOpacity onPress = {this.login}>
                                 <Text onPress = {this.action} style={{color:'#BA1717',fontSize:13,borderWidth:2,borderRadius:5,borderColor:'#BA1717',padding:12,marginRight:5,fontFamily:'Montserrat-Bold'}}>SIGN IN</Text>
-                            </TouchableOpacity>
+                              </TouchableOpacity>
+                           }
+                            
                             <TouchableOpacity onPress = {this.closemodal}>
                                 <Text style={{color:'#fff',fontSize:13,borderWidth:1,borderRadius:5,borderColor:'#BA1717',padding:12,marginRight:5,backgroundColor:'#BA1717',fontFamily:'Montserrat-Bold'}}>OKAY</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </Modal> 
-                  
-               </View>
                <View style={{marginTop:20,padding:10}}>
                   {
                      Object.keys(this.props.data.userData).length > 0 &&
@@ -147,7 +158,7 @@ class ProfileScreen extends React.Component {
                                        <TextInput keyboardType={'numeric'} placeholder='Phone Number' value={this.state.phone_number} onChangeText = {(text) => this.setState({phone_number:text})} style={{marginTop:10,borderRadius:3,width:'100%',borderColor:'#c1c1c1',borderWidth:1,color:'#3f3f3f',paddingStart:10}}/>
                                        {
                                           this.state.isFetching == true &&
-                                          <TouchableOpacity onPress = {this.save} style={{backgroundColor:'#BA1717',padding:10,marginTop:5,width:'60%',alignSelf:'center'}}>
+                                          <TouchableOpacity style={{backgroundColor:'#BA1717',padding:10,marginTop:5,width:'60%',alignSelf:'center'}}>
                                           <ActivityIndicator  size = 'small' color = '#fff'/>
                                           </TouchableOpacity>
                                        }
@@ -182,12 +193,7 @@ class ProfileScreen extends React.Component {
                         <View style={{width:'10%',marginTop:30}}>
                            <IonIcon name="md-settings" size={20} color="#000000"></IonIcon>
                         </View>
-                        <View style={{flexDirection:'row', width:'90%',marginTop:30,borderBottomColor:'#c1c1c1',borderBottomWidth:1,paddingBottom:4}}>
                         
-                        <Text style={{fontFamily:'Montserrat-Bold',fontSize:12,width:'90%'}}>Settings</Text>
-                        <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon>
-
-                        </View>
                    </View>
                    <View style={{flexDirection:'row'}}>
                         <View style={{width:'10%',marginTop:30}}>
@@ -195,7 +201,7 @@ class ProfileScreen extends React.Component {
                         </View>
                         <View style={{flexDirection:'row', width:'90%',marginTop:30,borderBottomColor:'#c1c1c1',borderBottomWidth:1,paddingBottom:4}}>
                         
-                        <Text style={{fontFamily:'Montserrat-Bold',fontSize:12,width:'90%'}}>Terms and Conditions</Text>
+                        <Text onPress = {()=>this.props.navigation.navigate('terms')} style={{fontFamily:'Montserrat-Bold',fontSize:12,width:'90%'}}>Terms and Conditions</Text>
                         <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon>
 
                         </View>
@@ -282,18 +288,23 @@ class ProfileScreen extends React.Component {
                                  
                               </View>
                               <View style={{flexDirection:'row', width:'90%',marginTop:30,paddingBottom:4}}>
-                              <Image
+                                <TouchableOpacity  onPress = {() => Linking.openURL('twitter://user?username=AcubaeStores')}> 
+                                <Image
+                                          
                                           source={require('../assets/images/twitter.png')}
                                           style={{width:40,aspectRatio:1.3,borderRadius:10,alignSelf:'center',width:'20%',marginRight:'10%'}}
                                  />
+                                 </TouchableOpacity>
                                  <Image
                                           source={require('../assets/images/facebook.png')}
                                           style={{width:40,aspectRatio:1.3,borderRadius:10,alignSelf:'center',width:'20%',marginRight:'10%'}}
                                  />
-                                 <Image
+                                 <TouchableOpacity  onPress = {() => Linking.openURL('instagram://user?username=Acubaestores')}> 
+                                  <Image
                                           source={require('../assets/images/instagram.png')}
                                           style={{width:40,aspectRatio:1.3,borderRadius:10,alignSelf:'center',width:'20%',margin:5}}
-                                 />
+                                  />
+                                 </TouchableOpacity>
                               </View>
                      
                         </View>
