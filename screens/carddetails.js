@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {View, Image,BackHandler,Platform, Text, TextInput, ScrollView,StyleSheet,TouchableOpacity, ActivityIndicator} from "react-native";
+import {View, Image,BackHandler,Platform, Text, TextInput, ScrollView,StyleSheet,TouchableOpacity, ActivityIndicator, Alert} from "react-native";
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
 import RNPaystack from 'react-native-paystack';
@@ -15,10 +15,10 @@ class CardDetails extends React.Component {
        super(props);
        this.state = {
            modalVisible:false,
-           cardNumber:'4123450131001381',
-           expiryMonth:'10',
-           expiryYear:'20',
-           cvc:'883',
+           cardNumber:'',
+           expiryMonth:'',
+           expiryYear:'',
+           cvc:'',
            isFetching:false
        }
     }
@@ -87,12 +87,15 @@ class CardDetails extends React.Component {
           })
           .then((response) => {
               //console.error(this.props.data.orderid);
+              this.setState({isFetching:false});
             this.verify(response.reference,this.props.data.orderid.orders_id);
             
             //console.error(response); 
             //console.error(response); // do stuff with the token
           })
           .catch(error => {
+            Alert.alert("Invalid Card Details");  
+            this.setState({isFetching:false});
             console.log(error); // error is a javascript Error object
             //Alert.alert(error.message);
           })   
