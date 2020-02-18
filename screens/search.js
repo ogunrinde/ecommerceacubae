@@ -113,7 +113,7 @@ class SearchScreen extends React.Component {
                      }
                      {
                          this.props.data.searchdata.type == '' && this.props.data.searchdata.sex != '' &&
-                         <Text style={{marginTop:20,fontFamily:'Montserrat-Bold',textAlign:'center',fontSize:17}}>{this.props.data.searchdata.sex}</Text>
+                         <Text style={{marginTop:20,fontFamily:'Montserrat-Bold',textAlign:'center',fontSize:17,textTransform:'capitalize'}}>{this.props.data.searchdata.sex}</Text>
                      }
                  </View>
                  <Modal isVisible={this.state.login}>
@@ -148,7 +148,7 @@ class SearchScreen extends React.Component {
                      <View style={{flexDirection:'row',flexWrap:'wrap'}}>
                          {
                              this.state.products.map((product) =>
-                             (this.props.data.searchdata.type == product.category || this.props.data.searchdata.sex == product.gender) &&
+                             this.props.data.searchdata.sex.toLowerCase() == product.gender.toLowerCase() && this.props.data.searchdata.category == '' &&
                              <View style={{backgroundColor:"#fff",width:'48%',padding:5,marginRight:3,marginTop:5}} key = {product.id} value = {product.id}>
                             {
                                 (product.loved == undefined || product.loved == false) &&
@@ -170,6 +170,33 @@ class SearchScreen extends React.Component {
                             </TouchableOpacity>
                             </View>
                              )}
+
+                          {
+                             this.state.products.map((product) =>
+                             this.props.data.searchdata.sex == product.gender && this.props.data.searchdata.category == product.category &&
+                             <View style={{backgroundColor:"#fff",width:'48%',padding:5,marginRight:3,marginTop:5}} key = {product.id} value = {product.id}>
+                            {
+                                (product.loved == undefined || product.loved == false) &&
+                               <IonIcon onPress = {() => this.love(product)} name="ios-heart-empty" size={20} color="#000" style={{position:'relative',textAlign:'right',marginRight:8}}></IonIcon>      
+                            }
+                            {
+                                product.loved == true &&
+                               <IonIcon onPress = {() => this.love(product)} name="ios-heart" size={20} color="#BA1717" style={{position:'relative',textAlign:'right',marginRight:8}}></IonIcon>      
+                            }
+                            
+                            <TouchableOpacity onPress = {() =>this.productdetails(product)}>
+                            <Image
+                              source={{uri: `${this.state.siteurl+'/public/images/'+product.picture.split('|')[0]}`}}
+                              style={{width:'70%',aspectRatio:1, alignSelf:'center'}}                        
+                              />
+                            
+                                <Text numberOfLines= {1} style={{alignSelf:'center',color:'#666666',fontSize:13,textTransform:'capitalize'}}>{product.name}</Text>
+                                <Text style={{alignSelf:'center',color:'#1d1e1e',fontSize:13, fontFamily:'Montserrat-Bold'}}>{currencyFormatter.format(product.price, { code: 'NGN' })}</Text>
+                            </TouchableOpacity>
+                            </View>
+                         )}   
+
+                             
                          
                          
                      </View>
