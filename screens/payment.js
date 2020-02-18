@@ -56,16 +56,14 @@ class PaymentScreen extends React.Component {
     saveOrders = async () => {
         this.totalprice();
         let price = (parseFloat(this.props.data.total_price) - parseFloat(this.props.data.gifts.certificate)) * 100;
-        let cert = this.props.data.customer.length > 0 ? this.props.data.customer[0].customer_certificate_left : 0;
-        let wrap = this.props.data.customer.length > 0 ? this.props.data.customer[0].customer_wrapping_left : 0;
         let data = {
             orders:this.props.data.carts, 
             shipping: this.props.data.newshippingaddress,
             amount:price.toString(),
-            wrappings:this.props.data.gifts.wrappings,
-            certificate:this.props.data.gifts.certificate,
-            cust_cert:cert,
-            cust_wrap:wrap
+            wrappings:0,
+            certificate:0,
+            cust_cert:0,
+            cust_wrap:0
          };
         await fetch('http://www.acubae.com/api/auth/saveorders', {
             method:'POST',
@@ -76,6 +74,7 @@ class PaymentScreen extends React.Component {
             },
             body:JSON.stringify(data)
         }).then(data => data.json()).then(data => {
+            //console.error(data);
             this.setState({isFetching:false});
              this.props.dispatch(orderID(data));
              this.savedetails(data);
