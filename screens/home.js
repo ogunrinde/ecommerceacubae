@@ -184,15 +184,13 @@ class HomeScreen extends React.Component {
                 this.props.data.products.length > 0 &&
                 <View>
                    <View style={{flexDirection:'row',marginTop:10,marginBottom:10}}>
-                       <View style={{width:'85%'}}>
+                       <View style={{width:'95%'}}>
                        <Image
                                 source={require('../assets/images/acubae.png')}
                                 style={{width:100,height:40,marginTop:-10,marginStart:-3}}
                                 />
                        </View>
                        <View style={{flexDirection:'row'}}>
-                         <IonIcon onPress = {() => this.props.navigation.navigate('search')} name="md-search" size={25} color="#000" style={{position:'relative',textAlign:'right',marginRight:10}}></IonIcon>
-                         <IonIcon onPress = {() => this.props.navigation.navigate('profile')} name="ios-notifications-outline" size={25} color="#000" style={{position:'relative',textAlign:'right',marginRight:8}}></IonIcon>      
                        </View>
                    </View>
                    <Modal isVisible={this.state.login}>
