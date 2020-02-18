@@ -87,8 +87,7 @@ class CartScreen extends React.Component {
         
     }
     toship = () =>{
-        let cert = this.props.data.customer.length > 0 ? this.props.data.customer[0].customer_certificate_left : 0;
-        let wrap = this.props.data.customer.length > 0 ? this.props.data.customer[0].customer_wrapping_left : 0;
+        
         if(this.props.data.carts.length == 0){
             this.setState({emptycart:!this.state.emptycart});
             return false;
