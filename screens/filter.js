@@ -28,6 +28,8 @@ class FilterScreen extends React.Component {
         return(
             <ScrollView showsVerticalScrollIndicator = {false} style={styles.container}>
                 <View>
+                  <IonIcon onPress = {() => this.props.navigation.goBack()} name="ios-arrow-back" size={20} color="#000000" style={{width:'5%'}}></IonIcon>
+
                    <View style={{marginTop:32}}>
                         <Text style={{fontFamily:'Montserrat-Bold',width:'100%',fontSize:20}}>Filter</Text>
                    </View>
@@ -36,7 +38,7 @@ class FilterScreen extends React.Component {
                     <Text style={{color:'#c1c1c1',fontSize:15,marginBottom:20,fontFamily:'Montserrat-Bold'}}>MEN</Text>
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {() => this.setState({gender:'Men',category:'Top'})} style={{width:'95%',color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15}}>Top</Text>
+                        <Text onPress = {() => this.setState({gender:'Men',category:'Top'})} style={{width:'95%',marginBottom:20,color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15}}>Top</Text>
                         {
                           this.state.category !== 'Top' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -59,7 +61,7 @@ class FilterScreen extends React.Component {
                     </View>
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {() => this.setState({gender:'Men',category:'Trouser and Short'})} style={{color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15,width:'95%'}}>Trouser and Short</Text>
+                        <Text onPress = {() => this.setState({gender:'Men',category:'Trouser and Short'})} style={{color:'#000000',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15,width:'95%'}}>Trouser and Short</Text>
                         {
                           this.state.category !== 'Trouser and Short' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -81,7 +83,7 @@ class FilterScreen extends React.Component {
                     </View>
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {()=>this.type('Men','Suits','Suits')} style={{width:'95%',color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15}}>Suit</Text>
+                        <Text onPress = {()=>this.type('Men','Suits','Suits')} style={{width:'95%',color:'#000000',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15}}>Suit</Text>
                         {
                           this.state.category !== 'Suit' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -95,7 +97,7 @@ class FilterScreen extends React.Component {
                     </View> 
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {()=>this.type('Men','Shoes','Shoes')} style={{width:'95%',color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15}}>Shoes</Text>
+                        <Text onPress = {()=>this.type('Men','Shoes','Shoes')} style={{width:'95%',color:'#000000',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15}}>Shoes</Text>
                         {
                           this.state.category !== 'Shoes' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -109,7 +111,7 @@ class FilterScreen extends React.Component {
                     </View>  
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {()=>this.type('Men','Cap','Cap')} style={{width:'95%',color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15}}>Cap</Text>
+                        <Text onPress = {()=>this.type('Men','Cap','Cap')} style={{width:'95%',color:'#000000',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15}}>Cap</Text>
                         {
                           this.state.category !== 'Cap' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -126,7 +128,7 @@ class FilterScreen extends React.Component {
                     <Text  style={{color:'#c1c1c1',fontSize:15,marginBottom:20,fontFamily:'Montserrat-Bold'}}>Women</Text>
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {() => this.setState({gender:'Women',category:'Top'})} style={{width:'95%',color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15}}>Top</Text>
+                        <Text onPress = {() => this.setState({gender:'Women',category:'Top'})} style={{width:'95%',marginBottom:20,color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15}}>Top</Text>
                         {
                           this.state.category !== 'Top' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -150,7 +152,7 @@ class FilterScreen extends React.Component {
                     </View>
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {() => this.setState({gender:'Women',category:'Skirts'})} style={{color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15,width:'95%'}}>Skirts</Text>
+                        <Text onPress = {() => this.setState({gender:'Women',category:'Skirts'})} style={{color:'#000000',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15,width:'95%'}}>Skirts</Text>
                         {
                           this.state.category !== 'Skirts' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -174,7 +176,7 @@ class FilterScreen extends React.Component {
                     </View>
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {() => this.setState({gender:'Women',category:'Trouser and Short'})} style={{color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15,width:'95%'}}>Trouser and Short</Text>
+                        <Text onPress = {() => this.setState({gender:'Women',category:'Trouser and Short'})} style={{color:'#000000',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15,width:'95%'}}>Trouser and Short</Text>
                         {
                           this.state.category !== 'Trouser and Short' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -202,7 +204,7 @@ class FilterScreen extends React.Component {
                     </View>
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {() => this.setState({gender:'Women',category:'Dress'})} style={{color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15,width:'95%'}}>Dress</Text>
+                        <Text onPress = {() => this.setState({gender:'Women',category:'Dress'})} style={{color:'#000000',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15,width:'95%'}}>Dress</Text>
                         {
                           this.state.gender !== 'Women' && this.state.category !== 'Dress' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -228,7 +230,7 @@ class FilterScreen extends React.Component {
                     </View>
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {()=>this.type('Women','suit','Suits')} style={{color:'#000000',width:'95%',fontFamily:'Montserrat-Regular',fontSize:15}}>Suit</Text>
+                        <Text onPress = {()=>this.type('Women','suit','Suits')} style={{color:'#000000',width:'95%',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15}}>Suit</Text>
                         {
                           this.state.gender !== 'Women' && this.state.category !== 'Suit' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -242,7 +244,7 @@ class FilterScreen extends React.Component {
                     </View> 
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {()=>this.type('Women','Shoes','Shoes')} style={{width:'95%',color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15}}>Shoes</Text>
+                        <Text onPress = {()=>this.type('Women','Shoes','Shoes')} style={{width:'95%',color:'#000000',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15}}>Shoes</Text>
                         {
                           this.state.category !== 'Shoes' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -256,7 +258,7 @@ class FilterScreen extends React.Component {
                     </View>  
                     <View>
                       <View style={{flexDirection:'row'}}>
-                        <Text onPress = {()=>this.type('Women','Cap','Cap')} style={{width:'95%',color:'#000000',fontFamily:'Montserrat-Regular',fontSize:15}}>Cap</Text>
+                        <Text onPress = {()=>this.type('Women','Cap','Cap')} style={{width:'95%',color:'#000000',marginBottom:20,fontFamily:'Montserrat-Regular',fontSize:15}}>Cap</Text>
                         {
                           this.state.category !== 'Cap' &&
                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
@@ -271,14 +273,7 @@ class FilterScreen extends React.Component {
                 </View>
                 <View style={{marginTop:31}}>
                     <Text style={{color:'#c1c1c1',fontSize:15,marginBottom:20,fontFamily:'Montserrat-Bold'}}>CHILDREN</Text>
-                    {
-                          this.state.gender !== 'Children' &&
-                          <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
-                        }
-                        {
-                          this.state.gender == 'Children' &&
-                          <IonIcon name="ios-arrow-down" size={20} color="#000000" style={{width:'5%'}}></IonIcon> 
-                        }
+                   
                     <View>
                     {
                         this.state.gender == 'Children' && this.state.category == 'Skirts' &&  

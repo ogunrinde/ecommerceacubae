@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {View, Text, ScrollView, StyleSheet, TextInput,Image, TouchableOpacity} from 'react-native';
 import { CheckBox,Card } from 'react-native-elements'
-import {search} from '../action/fetch';
+import {search,details} from '../action/fetch';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import currencyFormatter from 'currency-formatter';
 
@@ -23,6 +23,11 @@ class CategoryScreen extends React.Component {
     componentDidMount(){
         this.setdata();
     }
+    productdetails = (d) =>{
+        this.props.dispatch(details(d));
+       //console.error(this.props.data.productdetails)
+       this.props.navigation.navigate('details');
+   }
     setdata(){
         let men = []
         let women = [];

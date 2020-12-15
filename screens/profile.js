@@ -11,6 +11,7 @@ class ProfileScreen extends React.Component {
       this.state = {
          select:'',
          modalVisible:false,
+         feedback:"",
          name:'',
          email:'',
          phone_number:'',
@@ -23,6 +24,39 @@ class ProfileScreen extends React.Component {
     static navigationOptions = {
         header:null
     };
+    report = async ()=>{
+      if(this.state.feedback == ''){
+          this.setState({msg:'All Feedback field is required'});
+          this.setState({modalVisible:!this.state.modalVisible});
+          return false;
+      }
+      let formdata = {feedback:this.state.feedback};
+      this.setState({isFetching:true});
+      await fetch(`${this.state.siteurl}/api/auth/feedback`, {
+      method:'POST',
+      headers:{
+          'Accept': 'application/json',
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${this.props.data.access_token}`
+      },
+      body: JSON.stringify(formdata)
+          }).then(data => data.json()).then(data => {
+              this.setState({isFetching:false}); 
+              //console.error(data);
+              if(data.status == 'success'){
+                  this.setState({msg:'Feedback Sent Successfully'});    
+                  this.setState({modalVisible:!this.state.modalVisible});
+              }else if(data.status == 'failed'){
+                  this.setState({msg:'Error Updating Data, Try again Later'});    
+                  this.setState({modalVisible:!this.state.modalVisible});
+              }
+          }).catch(err => {
+
+              this.setState({msg:err.toString()});  
+              this.setState({modalVisible:!this.state.modalVisible});              
+              this.setState({modalVisible:!this.state.modalVisible});
+          });
+     }
     save = async ()=>{
       if(this.state.email == '' || this.state.name == '' || this.state.phone_number == ''){
           this.setState({msg:'All Input fields are required'});
@@ -43,6 +77,7 @@ class ProfileScreen extends React.Component {
               this.setState({isFetching:false}); 
               //console.error(data);
               if(data.status == 'success'){
+                  //console.error(data);
                   this.setState({msg:'Profile Edited Successful'});    
                   this.setState({modalVisible:!this.state.modalVisible});
               }else if(data.status == 'failed'){
@@ -55,7 +90,7 @@ class ProfileScreen extends React.Component {
               this.setState({modalVisible:!this.state.modalVisible});              
               this.setState({modalVisible:!this.state.modalVisible});
           });
-  }
+     }
 
     componentDidMount() {
         if(Object.keys(this.props.data.userData).length == 0){
@@ -190,9 +225,7 @@ class ProfileScreen extends React.Component {
                      }
                    
                    <View style={{flexDirection:'row'}}>
-                        <View style={{width:'10%',marginTop:30}}>
-                           <IonIcon name="md-settings" size={20} color="#000000"></IonIcon>
-                        </View>
+                        
                         
                    </View>
                    <View style={{flexDirection:'row'}}>
@@ -310,6 +343,52 @@ class ProfileScreen extends React.Component {
                         </View>
                     </View>
                    }
+                   <View style={{flexDirection:'row'}}>
+                        <View style={{width:'10%',marginTop:30}}>
+                           <IonIcon name="md-document" size={20} color="#000000"></IonIcon>
+                        </View>
+                        <View style={{flexDirection:'row', width:'90%',marginTop:30,borderBottomColor:'#c1c1c1',borderBottomWidth:1,paddingBottom:4}}>
+                        
+                        <Text onPress = {() =>this.select('feedback')} style={{fontFamily:'Montserrat-Bold',fontSize:12,width:'90%'}}>Feedback</Text>
+                        
+                        { 
+                           this.state.select !== 'feedback' && 
+                           <IonIcon name="ios-arrow-forward" size={20} color="#000000" style={{width:'5%'}}></IonIcon>
+                        }
+                        { 
+                           this.state.select == 'feedback' && 
+                           <IonIcon name="ios-arrow-down" size={20} color="#000000" style={{width:'5%'}}></IonIcon>
+                        }
+                        </View>
+               
+                   </View>
+                   {
+                           this.state.select == 'feedback' && 
+                           <View> 
+                              <View style={{flexDirection:'row',marginTop:-10}}>
+                                    <View style={{width:'10%',marginTop:0}}>
+                                       
+                                    </View>
+                                    <View style={{width:'90%',marginTop:30,paddingBottom:4}}>
+                                       <TextInput placeholder='Feedback for us' value={this.state.feedback} onChangeText = {(text) => this.setState({feedback:text})} style={{marginTop:10,borderRadius:3,borderColor:'#c1c1c1',borderWidth:1,color:'#3f3f3f',paddingStart:10}}/>
+                                       {
+                                          this.state.isFetching == false && 
+                                          <TouchableOpacity onPress = {this.report} style={{backgroundColor:'#BA1717',padding:10,marginTop:5,alignSelf:'flex-end',borderRadius:7}}>
+                                           <Text style={{color:'#fff',alignSelf:'center',fontFamily:'Montserrat-Bold',fontSize:12}}>Send</Text>
+                                          </TouchableOpacity>
+                                       }
+                                       {
+                                          this.state.isFetching == true && 
+                                          <TouchableOpacity  style={{backgroundColor:'#BA1717',padding:10,marginTop:5,alignSelf:'flex-end',borderRadius:7}}>
+                                           <ActivityIndicator size="small" color="#fff" />
+                                          </TouchableOpacity>
+                                       }
+                                       
+                                    </View>
+                              </View>
+                              
+                        </View>
+                     }
                    
                    
                    <View style={{flexDirection:'row',marginTop:50}}>

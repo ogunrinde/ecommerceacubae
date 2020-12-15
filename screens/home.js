@@ -34,6 +34,30 @@ class HomeScreen extends React.Component {
           notify:false
       }
     }
+    userlogin = async ()=>{
+        let formdata = await AsyncStorage.getItem('formdata');
+        if(formdata == null) return false;
+        formdata = JSON.parse(formdata);
+        //console.error(formdata);
+        this.setState({isFetching:true});
+        await fetch(`${this.props.data.siteurl}/api/auth/customerlogin`, {
+        method:'POST',
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(formdata)
+            }).then(data => data.json()).then(data => {
+                this.setState({isFetching:false}); 
+                //console.error(data);
+                if(data.status == 'success'){
+                    this.props.dispatch(login(data));
+                }else if(data.status == 'failed'){
+                    
+                }
+            }).catch(err => {
+            });
+    }
     getproducts = async () => {
         this.setState({isFetching:true});
         await fetch(`${this.props.data.siteurl}/api/auth/app_data`, {
@@ -79,11 +103,7 @@ class HomeScreen extends React.Component {
         this.setState({deals:deals,featured:featured});
     }  
     componentDidMount(){
-        let deals = []
-        let featured = [];
-        //alert('aaa');
-        //console.error(this.props.data.deals);
-        //alert(this.props.data.products.length);
+        this.userlogin();
         this.getproducts();
         
     }
